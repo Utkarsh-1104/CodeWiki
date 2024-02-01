@@ -17,10 +17,13 @@ const articleSchema = {
 
 const Article = mongoose.model("Article", articleSchema)
 
-
-
 app.get('/', (req, res) => { 
     res.send('<h1>Hello World</h1>')
+})
+
+app.get('/articles', async (req, res) => {
+    const allArticles = await Article.find()
+    console.log(allArticles);
 })
 
 app.listen(2000, () => {
