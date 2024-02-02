@@ -26,8 +26,22 @@ async function main() {
     })
     
     app.get('/articles', async (req, res) => {
-        const allArticles = await Article.find()
-        console.log(allArticles);
+        try {
+            const allArticles = await Article.find()
+            res.send(allArticles)
+        } catch (error) {
+            res.send(error.message)
+        }
+    })
+
+    app.post('/articles', (req, res) => {
+        console.log(req.body.title);
+        console.log(req.body.content);
+        const article = new Article({
+            title: req.body.title,
+            content: req.body.content
+        })
+        article.save()
     })
 }
 app.listen(2000, () => {
