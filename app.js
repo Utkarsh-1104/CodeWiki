@@ -20,7 +20,7 @@ async function main() {
     }
     
     const Article = mongoose.model("Article", articleSchema)
-
+    
     app.get('/', (req, res) => { 
         res.send('<h1>Hello World</h1>')
     })
@@ -29,7 +29,6 @@ async function main() {
         const allArticles = await Article.find()
         console.log(allArticles);
     })
-   
 }
 app.listen(2000, () => {
     console.log('sever running on http://localhost:2000');
