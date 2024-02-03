@@ -39,7 +39,20 @@ async function main() {
             title: req.body.title,
             content: req.body.content
         })
-        article.save()
+        try {
+            article.save()
+        } catch (error) {
+            res.send(error.message)
+        }
+    })
+
+    app.delete('/articles', async (req, res) => {
+        try {
+            await Article.deleteMany()
+            res.send('All articles deleted')
+        } catch (error) {
+            res.send(error.message)
+        }
     })
 }
 app.listen(2000, () => {
