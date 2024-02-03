@@ -25,36 +25,36 @@ async function main() {
         res.send('<h1>Hello World</h1>')
     })
     
-    app.get('/articles', async (req, res) => {
-        try {
-            const allArticles = await Article.find()
-            res.send(allArticles)
-        } catch (error) {
-            res.send(error.message)
-        }
-    })
-
-    app.post('/articles', (req, res) => {
-        const article = new Article({
-            title: req.body.title,
-            content: req.body.content
+    app.route('/articles')
+        .get(async (req, res) => {
+            try {
+                const allArticles = await Article.find()
+                res.send(allArticles)
+            } catch (error) {
+                res.send(error.message)
+            }
         })
-        try {
-            article.save()
-        } catch (error) {
-            res.send(error.message)
-        }
-    })
-
-    app.delete('/articles', async (req, res) => {
-        try {
-            await Article.deleteMany()
-            res.send('All articles deleted')
-        } catch (error) {
-            res.send(error.message)
-        }
-    })
+        .post((req, res) => {
+            const article = new Article({
+                title: req.body.title,
+                content: req.body.content
+            })
+            try {
+                article.save()
+            } catch (error) {
+                res.send(error.message)
+            }
+        })
+        .delete(async (req, res) => {
+            try {
+                await Article.deleteMany()
+                res.send('All articles deleted')
+            } catch (error) {
+                res.send(error.message)
+            }
+        })
 }
+
 app.listen(2000, () => {
     console.log('sever running on http://localhost:2000');
 })
