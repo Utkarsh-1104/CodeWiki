@@ -53,6 +53,20 @@ async function main() {
                 res.send(error.message)
             }
         })
+
+        app.route('/articles/:articleTitle')
+        .get(async (req, res) => {
+            try {
+                const article = await Article.findOne({title: req.params.articleTitle})
+                if (article) {
+                    res.send(article)
+                } else {
+                    res.send('No article found')
+                }
+            } catch (error) {
+                res.send(error.message)
+            }
+        })
 }
 
 app.listen(2000, () => {
