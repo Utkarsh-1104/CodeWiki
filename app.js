@@ -67,6 +67,17 @@ async function main() {
                 res.send(error.message)
             }
         })
+        .put(async (req, res) => {
+            try {
+                await Article.updateOne(
+                    {title: req.params.articleTitle},
+                    {title: req.body.title, content: req.body.content},
+                )
+                res.send('Article updated')
+            } catch (error) {
+                console.log(error.message);
+            }
+        })
 }
 
 app.listen(2000, () => {
