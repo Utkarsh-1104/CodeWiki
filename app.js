@@ -72,12 +72,14 @@ async function main() {
                 await Article.updateOne(
                     {title: req.params.articleTitle},
                     {title: req.body.title, content: req.body.content},
+                    {overwrite: true}
                 )
                 res.send('Article updated')
             } catch (error) {
                 console.log(error.message);
             }
         })
+        
 }
 
 app.listen(2000, () => {
