@@ -79,7 +79,17 @@ async function main() {
                 console.log(error.message);
             }
         })
-        
+        .patch(async (req, res) => {
+            try {
+                await Article.updateOne(
+                    {title: req.params.articleTitle},
+                    {$set: req.body}
+                )
+                res.send('Article updated')
+            } catch (error) {
+                console.log(error.message);
+            }
+        })
 }
 
 app.listen(2000, () => {
