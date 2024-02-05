@@ -90,6 +90,14 @@ async function main() {
                 console.log(error.message);
             }
         })
+        .delete(async (req, res) => {
+            try {
+                await Article.deleteOne({title: req.params.articleTitle})
+                res.send('Article deleted')
+            } catch (error) {
+                res.send(error.message)
+            }
+        })
 }
 
 app.listen(2000, () => {
